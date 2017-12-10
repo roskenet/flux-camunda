@@ -9,7 +9,8 @@ public class TaskB implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        execution.setVariable("myInteger", 110);
+        execution.setVariable("myInteger", 130);
+        execution.setVariable("anotherInteger", 100);
         System.out.println("Hier bin ich im TASK B!");
     }
 
