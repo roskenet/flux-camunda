@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.exception.NullValueException;
 import org.camunda.bpm.engine.task.Task;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,8 +42,6 @@ public class FluxCamundaApplicationTests {
 	    
 	    // Hier sollten jetzt Tasks fuer mich sein:
 	    List<Task> tasks = taskService.createTaskQuery().taskAssignee("felix").list();
-	    
-	    taskService.complete("918");
 	    
 	    tasks.forEach(System.out::println);
 	}
