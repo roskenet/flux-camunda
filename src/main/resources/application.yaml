@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/flux
+    username: flux
+    password: flux
+
+camunda:
+  bpm:
+    admin-user:
+      id: admin

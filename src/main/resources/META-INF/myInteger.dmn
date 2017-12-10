@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="definitions_0e1m33h" name="definitions" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="myIntegerDecision" name="MyInteger">
+    <extensionElements>
+      <biodi:bounds x="200" y="200" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="decisionTable">
+      <input id="input1" 
+             label="myInteger">
+        <inputExpression id="myInteger" typeRef="integer">
+          <text>myInteger</text>
+        </inputExpression>
+      </input>
+      <output id="output1" label="&#34;ergebnis&#34;" name="relation" typeRef="string" />
+      <rule id="row-595755896-2">
+        <inputEntry id="UnaryTests_0m1h1wr">
+          <text>100</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ylom8k">
+          <text><![CDATA["istgleich"]]></text>
+        </outputEntry>
+      </rule>
+      <rule id="row-595755896-3">
+        <inputEntry id="UnaryTests_0tz1x5g">
+          <text><![CDATA[< 100]]></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hfrnrw">
+          <text><![CDATA["kleiner"]]></text>
+        </outputEntry>
+      </rule>
+      <rule id="row-595755896-4">
+        <inputEntry id="UnaryTests_189dse4">
+          <text><![CDATA[> 100]]></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_189pk50">
+          <text><![CDATA["groesser"]]></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
