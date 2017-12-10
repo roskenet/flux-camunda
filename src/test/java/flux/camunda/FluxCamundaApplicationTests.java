@@ -1,10 +1,11 @@
 package flux.camunda;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.camunda.bpm.engine.RuntimeService;
-import org.camunda.bpm.engine.runtime.MessageCorrelationResult;
-import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.task.Task;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class FluxCamundaApplicationTests {
     @Autowired
     private RuntimeService runtimeService;
     
+    @Autowired
+    private TaskService taskService;
+    
 	@Test
 	public void contextLoads() {
 	}
@@ -25,14 +29,21 @@ public class FluxCamundaApplicationTests {
 	@Test
 	public void runTaskB() {
 	    UUID uuid = UUID.randomUUID();
-	    ProcessInstance procInst = runtimeService.startProcessInstanceByKey("proc_1", uuid.toString());
+	    runtimeService.startProcessInstanceByKey("proc_1", uuid.toString());
 //	    runtimeService.messageEventReceived("TASKB", procInst.getProcessInstanceId());
 	    
-	    MessageCorrelationResult result = runtimeService.createMessageCorrelation("TASKB")
+	    runtimeService.createMessageCorrelation("TASKB")
 	            .processInstanceBusinessKey(uuid.toString())
 //	            .processDefinitionId(procInst.getProcessDefinitionId())
+	            .setVariable("the_user", "felix")
 	            .setVariable("payment_type", "creditCard")
 	            .correlateWithResult();
 	    
+	    // Hier sollten jetzt Tasks fuer mich sein:
+	    List<Task> tasks = taskService.createTaskQuery().taskAssignee("felix").list();
+	    
+	    taskService.complete("918");
+	    
+	    tasks.forEach(System.out::println);
 	}
 }

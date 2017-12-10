@@ -37,19 +37,36 @@
       <bpmn:outgoing>SequenceFlow_0f25uul</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="Task_B" name="Task_B" camunda:delegateExpression="${taskB}">
+      <bpmn:extensionElements>
+        <camunda:executionListener delegateExpression="${exampleListener}" event="start" />
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1siev5d</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1fse12b</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0dbvbzm">
+        <bpmn:targetRef>DataStoreReference_1hvmb4u</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_1k9xmxh" sourceRef="Task_0puu785" targetRef="EndEvent_04c96cr" />
     <bpmn:serviceTask id="Task_0puu785" name="Log out" camunda:delegateExpression="${debugLogger}">
-      <bpmn:incoming>SequenceFlow_0kl0q34</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0y1dah6</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1k9xmxh</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_0kl0q34" sourceRef="myDecision" targetRef="Task_0puu785" />
+    <bpmn:sequenceFlow id="SequenceFlow_0kl0q34" sourceRef="myDecision" targetRef="Task_0cg4zcu" />
     <bpmn:businessRuleTask id="myDecision" name="evaluate integer" camunda:resultVariable="result" camunda:decisionRef="myIntegerDecision" camunda:mapDecisionResult="singleResult">
       <bpmn:incoming>SequenceFlow_1fse12b</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0kl0q34</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_15pqpoq">
+        <bpmn:targetRef>DataObjectReference_1pk9xgt</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
     </bpmn:businessRuleTask>
+    <bpmn:dataStoreReference id="DataStoreReference_1hvmb4u" />
+    <bpmn:dataObjectReference id="DataObjectReference_1pk9xgt" dataObjectRef="DataObject_1cg9u4p" />
+    <bpmn:dataObject id="DataObject_1cg9u4p" />
+    <bpmn:sequenceFlow id="SequenceFlow_0y1dah6" sourceRef="Task_0cg4zcu" targetRef="Task_0puu785" />
+    <bpmn:userTask id="Task_0cg4zcu" name="myUserTask" camunda:assignee="${the_user}">
+      <bpmn:incoming>SequenceFlow_0kl0q34</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0y1dah6</bpmn:outgoing>
+    </bpmn:userTask>
   </bpmn:process>
   <bpmn:message id="Message_06nwh4h" name="TASKA" />
   <bpmn:message id="Message_0bqgeot" name="TASKB" />
@@ -147,24 +164,54 @@
         <dc:Bounds x="495" y="223" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1k9xmxh_di" bpmnElement="SequenceFlow_1k9xmxh">
-        <di:waypoint xsi:type="dc:Point" x="1145" y="263" />
+        <di:waypoint xsi:type="dc:Point" x="1306" y="263" />
         <di:waypoint xsi:type="dc:Point" x="1366" y="263" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1255.5" y="242" width="0" height="12" />
+          <dc:Bounds x="1336" y="242" width="0" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1qemgxz_di" bpmnElement="Task_0puu785">
-        <dc:Bounds x="1045" y="223" width="100" height="80" />
+        <dc:Bounds x="1206" y="223" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0kl0q34_di" bpmnElement="SequenceFlow_0kl0q34">
         <di:waypoint xsi:type="dc:Point" x="810" y="263" />
-        <di:waypoint xsi:type="dc:Point" x="1045" y="263" />
+        <di:waypoint xsi:type="dc:Point" x="931" y="263" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="927.5" y="242" width="0" height="12" />
+          <dc:Bounds x="870.5" y="242" width="0" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="BusinessRuleTask_1i8pfze_di" bpmnElement="myDecision">
         <dc:Bounds x="710" y="223" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_1hvmb4u_di" bpmnElement="DataStoreReference_1hvmb4u">
+        <dc:Bounds x="520" y="399" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="545" y="453" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0dbvbzm_di" bpmnElement="DataOutputAssociation_0dbvbzm">
+        <di:waypoint xsi:type="dc:Point" x="545" y="303" />
+        <di:waypoint xsi:type="dc:Point" x="546" y="399" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataObjectReference_1pk9xgt_di" bpmnElement="DataObjectReference_1pk9xgt">
+        <dc:Bounds x="742" y="377" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="760" y="431" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_15pqpoq_di" bpmnElement="DataOutputAssociation_15pqpoq">
+        <di:waypoint xsi:type="dc:Point" x="759" y="303" />
+        <di:waypoint xsi:type="dc:Point" x="758" y="377" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0y1dah6_di" bpmnElement="SequenceFlow_0y1dah6">
+        <di:waypoint xsi:type="dc:Point" x="1031" y="263" />
+        <di:waypoint xsi:type="dc:Point" x="1206" y="263" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1118.5" y="242" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0jxeht6_di" bpmnElement="Task_0cg4zcu">
+        <dc:Bounds x="931" y="223" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
